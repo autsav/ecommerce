@@ -30,7 +30,15 @@ function CartScreen() {
         // console.log('remove', id)
     }
     const addToCheckoutHandler = () => {
-        navigate(`/login?redirect=shipping`)
+
+        navigate("/shipping")
+        // if(userInfo === null || userInfo === undefined ){
+        //     navigate("/login")
+        // }else{
+        //     navigate("/shipping")
+        // }
+   
+        
     }
 
     return (
