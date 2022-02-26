@@ -38,7 +38,7 @@ function App() {
             <Route path='/profile' element={<ProfileScreen />}  />
             <Route path='/shipping' element={userInfo ? <ShippingScreen /> : <Navigate to="/login" /> }  />
             <Route path='/payment'  element={userInfo ? <PaymentScreen  /> : <Navigate to="/login" /> }  />
-            <Route path='/placeOrder'  element={userInfo ? <PlaceOrderScreen  /> : <Navigate to="/login" /> }  />
+            <Route path='/placeorder'  element={userInfo ? <PlaceOrderScreen  /> : <Navigate to="/login" /> }  />
 
             <Route path='/product/:id' element={<ProductScreen />}/>
             <Route path='/cart/' element={<CartScreen />}/>
