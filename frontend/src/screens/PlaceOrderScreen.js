@@ -5,19 +5,44 @@ import {  Button, Row ,Col, ListGroup, Image, Card} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
-import { saveShippingAddress } from '../actions/cartActions'
+import { createOrder } from '../actions/orderActions'
 
 function PlaceOrderScreen() {
+    const navigate =  useNavigate()
+
+    const orderCreate = useSelector(state => state.orderCreate)
+    const {order, error, success } = orderCreate
+
+    const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)  
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0 ).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
     cart.taxPrice = Number((0.082) * cart.itemsPrice).toFixed(2)
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
+    
+    if(!cart.paymentMethod){
+        navigate('/payment')
+    }
+    useEffect(() => {
+        if(success){
+            navigate(`/order/${order._id}`)
+            dispatch({type:ORDER_CREATE_RESET})
+        }
+    }, [success, navigate])
 
     const placeOrder = () => {
-        console.log('place order')
+       dispatch(createOrder({
+           orderItems:cart.cartItems,
+           shippingAddress:cart.shippingAddress,
+           paymentMethod: cart.paymentMethod,
+           itemsPrice:cart.itemsPrice,
+           shippingPrice:cart.shippingPrice,
+           taxPrice:cart.taxPrice,
+           totalPrice:cart.totalPrice,
+       }))
     }
 
 
@@ -110,6 +135,11 @@ function PlaceOrderScreen() {
                                     <Col>${cart.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
+
+                            <ListGroup.Item>
+                               {error && <Message variant='danger'>{error}</Message>}
+                            </ListGroup.Item>
+
                             <ListGroup.Item>
                                 <Button
                                     type='button'

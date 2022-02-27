@@ -11,7 +11,7 @@ from base.serializers import ProductSerializer ,OrderSerializer,UserSerializerWi
 from rest_framework import status
 
 @api_view(['POST'])
-@permission_classes(['IsAuthenticated'])
+@permission_classes([IsAuthenticated])
 def addOrderItems(request):
     user = request.user
     data = request.data
@@ -50,8 +50,9 @@ def addOrderItems(request):
                 price=i['price'],
                 image=product.image.url,
             )
-        #(4) Update Stock
-        product.countInStock -= item.qty
-        product.save()
-    serializer = OrderSerializer(order, many=False)
-    return Response(serializer.data)
+            #(4) Update Stock
+            product.countInStock -= item.qty
+            product.save()
+        serializer = OrderSerializer(order, many=False)
+        # print(serializer)
+        return Response(serializer.data)
