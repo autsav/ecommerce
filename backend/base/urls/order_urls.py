@@ -7,11 +7,6 @@ from base.views import order_views as views
 
 urlpatterns = [
     path('add/', views.addOrderItems, name='orders-add'),
-    # path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('register/', views.registerUser,name='register'),
-
-    # path('profile/', views.getUserProfile, name="user-profile"),
-    # path('', views.getUsers, name="users"),
-
-
+    path('<str:pk>/', views.getOrderById, name='user-order'),
+  
 ]   
