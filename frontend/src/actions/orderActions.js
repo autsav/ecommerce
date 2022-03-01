@@ -52,7 +52,7 @@ import {
     }
 }
 
-export const createOrderDetails = (id) => async (dispatch, getState) =>{
+export const getOrderDetails = (id) => async (dispatch, getState) =>{
     try {
         dispatch({
             type:ORDER_DETAILS_REQUEST
