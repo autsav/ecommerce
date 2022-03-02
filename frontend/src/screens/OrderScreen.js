@@ -14,16 +14,7 @@ import { createOrder } from '../actions/orderActions'
 
 function OrderScreen() {
     const params = useParams();
-    
-
-    // const { slug } = useParams()
-    // console.log('down')
-    // console.log(slug.id)
-    // console.log('up')
-
-    
-    
-
+ 
     const orderId = params.id
     // const navigate =  useNavigate()
     const dispatch = useDispatch()
@@ -46,7 +37,7 @@ function OrderScreen() {
             dispatch(getOrderDetails(orderId))
 
         }
-    }, [order, orderId])
+    }, [dispatch,order, orderId])
 
   return loading ?  (
       <Loader/>
