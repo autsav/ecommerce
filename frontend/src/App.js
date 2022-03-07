@@ -17,6 +17,7 @@ import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
 import UserListScreen from './screens/UserListScreen'
+import UserEditScreen from './screens/UserEditScreen'
 
 
 
@@ -47,10 +48,13 @@ function App() {
             <Route path='/product/:id' element={<ProductScreen />}/>
             <Route path='/cart/' element={<CartScreen />}/>
             <Route path='/cart/:id' element={<CartScreen />}/>  
-            <Route path='/admin/userlist' element={ userInfo && userInfo.isAdmin ? (<UserListScreen />):(<Navigate to="/login" />)
+            <Route path='/admin/userlist' element={ userInfo && userInfo.isAdmin ? (<UserListScreen />):(<Navigate to="/login" />)} />
+            {/* <Route path='/admin/user/:id/edit' element={ userInfo && userInfo.isAdmin ? (<UserEditScreen />):(<Navigate to="/login" />)} /> */}
+            <Route path='/admin/user/:id/edit' element={<UserEditScreen />}  />
+            
 
             
-      }/>  
+     
           </Routes>
           
         </Container>
