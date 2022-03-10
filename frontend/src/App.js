@@ -19,7 +19,7 @@ import OrderScreen from './screens/OrderScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
-import CreateProductScreen from './screens/CreateProductScreen'
+import ProductEditScreen from './screens/ProductEditScreen'
 
 
 
@@ -46,7 +46,7 @@ function App() {
             <Route path='/cart/:id' element={<CartScreen />}/>  
             <Route path='/admin/userlist' element={ userInfo && userInfo.isAdmin ? (<UserListScreen />):(<Navigate to="/login" />)} />
             <Route path='/admin/productlist' element={ userInfo && userInfo.isAdmin ? (<ProductListScreen />):(<Navigate to="/login" />)} />
-            <Route path='/admin/createproduct' element={ userInfo && userInfo.isAdmin ? (<CreateProductScreen />):(<Navigate to="/login" />)} />
+            <Route path='/admin/product/:id/edit' element={ userInfo && userInfo.isAdmin ? (<ProductEditScreen />):(<Navigate to="/login" />)} />
 
             {/* <Route path='/admin/user/:id/edit' element={ userInfo && userInfo.isAdmin ? (<UserEditScreen />):(<Navigate to="/login" />)} /> */}
             <Route path='/admin/user/:id/edit' element={<UserEditScreen />}  />
