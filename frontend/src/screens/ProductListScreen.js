@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Card, Row, Col } from 'react-bootstrap'
@@ -10,6 +10,7 @@ import { listProducts, deleteProduct } from '../actions/productActions'
 
 function ProductListScreen() {
       const dispatch = useDispatch()
+      const navigate = useNavigate()
 
       const productList = useSelector(state => state.productList)
       const { loading ,error, products } = productList 
@@ -31,7 +32,7 @@ function ProductListScreen() {
         
       }
       const createProductHandler = ()=>{
-        console.log('create product')
+        navigate(`/admin/createproduct`)
       }
   
   return (
