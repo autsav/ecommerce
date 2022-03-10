@@ -46,8 +46,8 @@ function App() {
             <Route path='/cart/:id' element={<CartScreen />}/>  
             <Route path='/admin/userlist' element={ userInfo && userInfo.isAdmin ? (<UserListScreen />):(<Navigate to="/login" />)} />
             <Route path='/admin/productlist' element={ userInfo && userInfo.isAdmin ? (<ProductListScreen />):(<Navigate to="/login" />)} />
-            <Route path='/admin/product/:id/edit' element={ userInfo && userInfo.isAdmin ? (<ProductEditScreen />):(<Navigate to="/login" />)} />
-
+            {/* <Route path='/admin/product/:id/edit' element={ userInfo && userInfo.isAdmin ? (<ProductEditScreen />):(<Navigate to="/login" />)} /> */}
+            <Route path='/admin/product/:id/edit' element={<ProductEditScreen />}/>  
             {/* <Route path='/admin/user/:id/edit' element={ userInfo && userInfo.isAdmin ? (<UserEditScreen />):(<Navigate to="/login" />)} /> */}
             <Route path='/admin/user/:id/edit' element={<UserEditScreen />}  />
             
