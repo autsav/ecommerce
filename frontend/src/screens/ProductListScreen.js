@@ -6,6 +6,8 @@ import { Table, Button, Card, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import  Loader from '../components/Loader'
 import  Message  from '../components/Message'
+import  Paginate  from '../components/Paginate'
+
 import { listProducts, deleteProduct, createProduct } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
@@ -14,7 +16,7 @@ function ProductListScreen() {
       const navigate = useNavigate()
 
       const productList = useSelector(state => state.productList)
-      const { loading ,error, products } = productList 
+      const { loading ,error, products, pages,page } = productList 
 
       const productDelete = useSelector(state => state.productDelete)
       const { loading:loadingDelete ,error:errorDelete, success:successDelete } = productDelete 
@@ -24,6 +26,7 @@ function ProductListScreen() {
 
       const userLogin = useSelector(state => state.userLogin)
       const { userInfo } = userLogin
+      let keyword = window.location.search
 
       useEffect(()=>{
         
@@ -34,11 +37,11 @@ function ProductListScreen() {
         if(successCreate){
           navigate(`/admin/product/${createdProduct._id}/edit`)
         }else{
-          dispatch(listProducts())
+          dispatch(listProducts(keyword))
         }
 
        
-      },[dispatch, userInfo,successDelete,successCreate,createdProduct])
+      },[dispatch, userInfo,successDelete,successCreate,createdProduct,keyword])
 
       const deleteHandler = (id) => {
         if(window.confirm('Are you sure you want to delete this product?')){
@@ -74,7 +77,8 @@ function ProductListScreen() {
             :error
                 ? (<Message varian='danger'>{error}</Message>)
                 : (
-            <Table striped bordered hover responsive className='table-sm' >
+                <div>
+                <Table striped bordered hover responsive className='table-sm' >
               <thead>
                 <tr>
                   <th>ID</th>
@@ -135,6 +139,8 @@ function ProductListScreen() {
               </tbody>
 
             </Table>
+            <Paginate pages={pages} page={page} isAdmin={true} />
+                </div>
             )
          }
     </div>

@@ -20,6 +20,8 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
+import OrderListScreen from './screens/OrderListScreen'
+
 
 
 
@@ -39,6 +41,8 @@ function App() {
             <Route path='/shipping' element={userInfo ? <ShippingScreen /> : <Navigate to="/login" /> }  />
             <Route path='/payment'  element={userInfo ? <PaymentScreen  /> : <Navigate to="/login" /> }  />
             <Route path='/placeorder'  element={userInfo ? <PlaceOrderScreen  /> : <Navigate to="/login" /> }  />
+            <Route path='/admin/orderlist'  element={userInfo ? <OrderListScreen  /> : <Navigate to="/login" /> }  />
+
             <Route path='/order/:id'  element={userInfo ? <OrderScreen  /> : <Navigate to="/login" /> }  />
 
             <Route path='/product/:id' element={<ProductScreen />}/>

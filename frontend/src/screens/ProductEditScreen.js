@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link, useNavigate, useParams } from 'react-router-dom'
-
+import axios from "axios"
 
 import {  Button, Form} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,6 +25,8 @@ function ProductEditScreen() {
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [countInStock, setCountInStock] = useState(0)
+    const [uploading, setUploading] = useState(false)
+
     // const [rating, setRating] = useState('')
     // const [numReviews, setName] = useState('')
     const dispatch = useDispatch()
@@ -76,6 +78,38 @@ function ProductEditScreen() {
         }))
       }
     
+      const uploadFileHandler = async (e) => {
+          const file = e.target.files[0]
+          const formData = new FormData()
+       
+          formData.append('image', file)
+          formData.append('product_id', productId)
+        //   console.log(formData)
+          setUploading(true)
+
+         try{
+            const config = {
+                headers:{
+                    'Content-Type':'multipart/form-data'
+                }
+            }
+
+            const { data } = await axios.post(
+                `/api/products/upload/`,
+                formData,
+                config
+            )
+           
+            
+                console.log(data)
+            setImage(data)
+            setUploading(false)
+         }catch(error){
+             setUploading(false)
+         }
+              
+         console.log('out')
+      }
 
   return (
         <div>
@@ -95,7 +129,7 @@ function ProductEditScreen() {
                             <Form.Group controlId='name' >
                                 <Form.Label>Name</Form.Label>
                                     <Form.Control
-                                    required
+                                    
                                     type="name"
                                     placeholder ='Enter Name'
                                     value={name}
@@ -103,21 +137,30 @@ function ProductEditScreen() {
                                     >
                                     </Form.Control>
                                 </Form.Group>
-                                <Form.Group controlId='image' >
+                                <Form.Group  >
                                 <Form.Label>Image</Form.Label>
                                     <Form.Control
-                                    required
-                                    type="image"
+                                    
+                                    type="text"
                                     placeholder ='Enter image'
                                     value={image}
                                     onChange={(e) =>setImage(e.target.value)}
                                     >
                                     </Form.Control>
+                                    <Form.Control
+                                        type='file'
+                                        id='image-file'
+                                        label='Choose File'
+                                        custom
+                                        onChange={uploadFileHandler}
+                                    />
+                                    {uploading && <Loader />}
+                                    
                                 </Form.Group>
                                 <Form.Group controlId='brand' >
                                 <Form.Label>Brand</Form.Label>
                                     <Form.Control
-                                    required
+                                    
                                     type="text"
                                     placeholder ='Enter Brand'
                                     value={brand}
@@ -128,7 +171,7 @@ function ProductEditScreen() {
                                 <Form.Group controlId='category' >
                                 <Form.Label>Category</Form.Label>
                                     <Form.Control
-                                    required
+                                    
                                     type="text"
                                     placeholder ='Select Category'
                                     value={category}
@@ -139,7 +182,7 @@ function ProductEditScreen() {
                                 <Form.Group controlId='description' >
                                 <Form.Label>Description</Form.Label>
                                     <Form.Control
-                                    required
+                                    
                                     type="text"
                                     placeholder ='Enter description'
                                     value={description}
@@ -161,7 +204,7 @@ function ProductEditScreen() {
                                 <Form.Group controlId='price' >
                                 <Form.Label>Price</Form.Label>
                                     <Form.Control
-                                    required
+                                    
                                     type="number"
                                     placeholder ='Enter price'
                                     value={price}
@@ -172,7 +215,7 @@ function ProductEditScreen() {
                                 <Form.Group controlId='countinstock' >
                                 <Form.Label>CountInStock</Form.Label>
                                     <Form.Control
-                                    required
+                                    
                                     type="number"
                                     placeholder ='Enter countInStock'
                                     value={countInStock}
