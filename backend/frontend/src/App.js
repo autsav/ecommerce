@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 // import './App.css';
 import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Routes, Route, Switch, Navigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Switch, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Header from './components/Header'
 import Footer from './components/Footer'

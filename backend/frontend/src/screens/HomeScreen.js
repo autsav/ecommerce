@@ -8,7 +8,8 @@ import Product from '../components/Product'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
-import { listProducts } from '../actions/productActions'
+import ProductCarousel from '../components/ProductCarousel'
+import { listProducts, listTopProducts } from '../actions/productActions'
 
 function HomeScreen() {
     const dispatch = useDispatch()
@@ -30,6 +31,8 @@ function HomeScreen() {
     },[dispatch,keyword])
     return (
         <div>
+        {!keyword && <ProductCarousel /> }
+            
             <h1>Latest products</h1>
             {
                 loading ? <Loader />
